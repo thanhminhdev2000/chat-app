@@ -43,7 +43,7 @@ const RedirectAuthenticatedUser = ({ children }) => {
 
 function App() {
   const GOOGLE_CLIENT_ID =
-    "680003657174-aqste8emfn82sgmbgorpdtjq0u4pmodh.apps.googleusercontent.com";
+    "283608116258-qndackpj3tlm4cdaa8me8pb9bpvgqpat.apps.googleusercontent.com";
   const { isCheckingAuth, checkAuth } = useAuthStore();
 
   useEffect(() => {

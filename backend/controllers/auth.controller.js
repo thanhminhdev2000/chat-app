@@ -154,6 +154,7 @@ export const loginGoogle = async (req, res) => {
         success: true,
         user: {
           ...user._doc,
+          message: "Logged in with Google successfully",
           password: undefined,
         },
       });
