@@ -4,7 +4,6 @@ import FloatingShape from "./components/FloatingShape";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
-import DashboardPage from "./pages/DashboardPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 
@@ -14,6 +13,7 @@ import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import HomePage from "./pages/HomePage";
 
 // protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -84,7 +84,7 @@ function App() {
           path="/"
           element={
             <ProtectedRoute>
-              <DashboardPage />
+              <HomePage />
             </ProtectedRoute>
           }
         />
