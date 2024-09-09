@@ -11,11 +11,10 @@ const useSendMessage = () => {
   const sendMessage = async (message) => {
     setLoading(true);
     try {
-      const res = await axios.post(`${API_URL}/messages/send/${selectedConversation._id}`, { message });
-      const data = await res.json();
+      const data = await axios.post(`${API_URL}/messages/send/${selectedConversation._id}`, { message });
       if (data.error) throw new Error(data.error);
 
-      setMessages([...messages, data]);
+      setMessages([...messages, data.data]);
     } catch (error) {
       toast.error(error.message);
     } finally {

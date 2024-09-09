@@ -9,10 +9,19 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
+      minLength: 6,
     },
     name: {
       type: String,
       required: true,
+    },
+    profilePic: {
+      type: String,
+      default: "",
+    },
+    profilePicId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "uploads.files",
     },
     lastLogin: {
       type: Date,

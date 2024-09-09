@@ -22,14 +22,35 @@ export const useAuthStore = create((set) => ({
         password,
         name,
       });
+      console.log('response.data.user', response.data.user);
       set({
         user: response.data.user,
         isAuthenticated: true,
         isLoading: false,
       });
+      return response.data.user;
     } catch (error) {
       set({
         error: error.response.data.message || 'Error signing up',
+        isLoading: false,
+      });
+      throw error;
+    }
+  },
+  upload: async (userId, formData) => {
+    set({ isLoading: true, error: null });
+    try {
+      await axios.post(`${API_URL}/upload/${userId}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      set({
+        isLoading: false,
+      });
+    } catch (error) {
+      set({
+        error: error.response.data.message || 'Error when upload profile image',
         isLoading: false,
       });
       throw error;

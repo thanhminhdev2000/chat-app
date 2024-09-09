@@ -10,7 +10,7 @@ export const sendVerificationEmail = async (email, verificationToken) => {
   const recipient = [email];
 
   try {
-    const response = await transporter.sendMail({
+    transporter.sendMail({
       from: sender,
       to: recipient,
       subject: "Verify your email",
@@ -20,8 +20,6 @@ export const sendVerificationEmail = async (email, verificationToken) => {
       ),
       category: "Email Verification",
     });
-
-    console.log("Verification Email send successfully", response);
   } catch (error) {
     console.error(`Error sending verification email`, error);
     throw new Error(`Error sending verification email ${error}`);
@@ -32,7 +30,7 @@ export const sendWelcomeEmail = async (email, name) => {
   const recipient = [email];
 
   try {
-    const response = await transporter.sendMail({
+    transporter.sendMail({
       from: sender,
       to: recipient,
       template_uuid: "89a29d28-108e-40db-b625-84933b100b74",
@@ -41,8 +39,6 @@ export const sendWelcomeEmail = async (email, name) => {
         name: name,
       },
     });
-
-    console.log("Welcome email send successfully", response);
   } catch (error) {
     console.error(`Error sending welcome email`, error);
     throw new Error(`Error sending welcome email ${error}`);
@@ -53,15 +49,13 @@ export const sendPasswordResetEmail = async (email, resetURL) => {
   const recipient = [email];
 
   try {
-    const response = await transporter.sendMail({
+    transporter.sendMail({
       from: sender,
       to: recipient,
       subject: "Reset your password",
       html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("{resetURL}", resetURL),
       category: "Password Reset",
     });
-
-    console.log("Request Reset Password send successfully", response);
   } catch (error) {
     console.error(`Error sending request reset password email`, error);
     throw new Error(`Error sending request reset password email ${error}`);
@@ -72,15 +66,13 @@ export const sendResetSuccessEmail = async (email) => {
   const recipient = [email];
 
   try {
-    const response = await transporter.sendMail({
+    transporter.sendMail({
       from: sender,
       to: recipient,
       subject: "Reset Password  Successfully",
       html: PASSWORD_RESET_SUCCESS_TEMPLATE,
       category: "Reset Password",
     });
-
-    console.log("Reset Password send successfully", response);
   } catch (error) {
     console.error(`Error sending reset password success`, error);
     throw new Error(`Error sending reset password success ${error}`);

@@ -1,28 +1,30 @@
-import { extractTime } from '../../utils/extractTime';
 import useConversation from '../../store/useConversation';
 import { useAuthStore } from '../../store/authStore';
+import Avatar from '../sidebar/Avatar';
 
 const Message = ({ message }) => {
   const { user } = useAuthStore();
   const { selectedConversation } = useConversation();
-  const fromMe = message.senderId === user._id;
-  const formattedTime = extractTime(message.createdAt);
-  const chatClassName = fromMe ? 'chat-end' : 'chat-start';
-  const bubbleBgColor = fromMe ? 'bg-blue-500' : '';
 
+  const fromMe = message.senderId === user._id;
+  const profilePic = fromMe ? user.profilePic : selectedConversation?.profilePic;
   const shakeClass = message.shouldShake ? 'shake' : '';
 
   return (
-    <div className={`chat ${chatClassName}`}>
-      <div className="chat-image avatar">
-        <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
-          <span className="text-xl font-bold text-gray-700">
-            {selectedConversation.name.charAt(0).toUpperCase() || '?'}
-          </span>
+    <div>
+      {fromMe ? (
+        <div className="flex justify-end">
+          <div className="flex items-center mb-1 gap-1">
+            <div className={`chat-bubble text-white ${shakeClass} pb-2`}>{message.message}</div>
+            <Avatar size={10} filename={profilePic} />
+          </div>
         </div>
-      </div>
-      <div className={`chat-bubble ${bubbleBgColor} ${shakeClass} pb-2`}>{message.message}</div>
-      <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">{formattedTime}</div>
+      ) : (
+        <div className="flex items-center mb-1 gap-1">
+          <Avatar size={10} filename={profilePic} />
+          <div className={`chat-bubble text-white ${shakeClass} pb-2`}>{message.message}</div>
+        </div>
+      )}
     </div>
   );
 };
